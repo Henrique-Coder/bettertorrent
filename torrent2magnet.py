@@ -80,10 +80,7 @@ if uploaded_file is not None:
 
     col1_1, col1_2, col1_3, col1_4 = st.columns(4)
 
-    if col1_2.button('Abrir URI Magnético Original'):
-        open_new_tab(magnet_uri)
-
-    if col1_3.button('Abrir URI Magnético com Rastreadores'):
-        open_new_tab(updated_magnet_uri)
+    col1_2.button('Abrir URI Magnético Original', on_click=lambda: open_new_tab(magnet_uri))
+    col1_3.button('Abrir URI Magnético com Rastreadores', on_click=lambda: open_new_tab(updated_magnet_uri))
 
     warn.success('Os rastradores foram adicionados ao URI magnético com sucesso!')
