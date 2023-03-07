@@ -1,9 +1,10 @@
+from hashlib import sha1
+from urllib.parse import urlparse
+from webbrowser import open_new_tab
+
 import streamlit as st
 from bencodepy import decode, encode
-from hashlib import sha1
-from webbrowser import open_new_tab
 from requests import get, exceptions
-from urllib.parse import urlencode, urlparse
 
 
 page_title = 'Arquivo Torrent ➙ URI Magnético'
