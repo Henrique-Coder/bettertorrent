@@ -1,6 +1,6 @@
 from hashlib import sha1
 from urllib.parse import urlparse
-from webbrowser import open_new_tab
+from webbrowser import open
 
 import streamlit as st
 from bencodepy import decode, encode
@@ -19,7 +19,7 @@ def get_magnet_link(torrent_file):
     info = metainfo[b'info']
     info_bencoded = encode(info)
     info_hash = sha1(info_bencoded).hexdigest()
-    magnet_uri = f'magnet:?xt=urn:btih:{info_hash.upper()}'
+    magnet_uri = f'magnet:?xt=urn:btih:{info_hash}'
     return magnet_uri
 
 
@@ -80,7 +80,7 @@ if uploaded_file is not None:
 
     col1_1, col1_2, col1_3, col1_4 = st.columns(4)
 
-    col1_2.button('Abrir URI Magnético Original', on_click=lambda: open_new_tab(magnet_uri))
-    col1_3.button('Abrir URI Magnético com Rastreadores', on_click=lambda: open_new_tab(updated_magnet_uri))
+    col1_2.button('Abrir URI Magnético Original', on_click=lambda: open(magnet_uri, new=2))
+    col1_3.button('Abrir URI Magnético com Rastreadores', on_click=lambda: open(updated_magnet_uri, new=2))
 
     warn.success('Os rastradores foram adicionados ao URI magnético com sucesso!')
