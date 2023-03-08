@@ -13,14 +13,17 @@ page_favicon = 'favicon.ico'
 st.set_page_config(page_title=page_title, page_icon=page_favicon, layout='centered', initial_sidebar_state='auto')
 
 
-def get_magnet_link(torrent_file):
-    torrent_content = torrent_file.read()
-    metainfo = decode(torrent_content)
+def get_magnet_link(metainfo):
     info = metainfo[b'info']
     info_bencoded = encode(info)
     info_hash = sha1(info_bencoded).hexdigest()
     magnet_uri = f'magnet:?xt=urn:btih:{info_hash}'
     return magnet_uri
+
+def get_trackers(metainfo):
+    trackers = metainfo[b'announce-list']
+    trackers = set(tracker[0].decode() for tracker in trackers)
+    return trackers
 
 
 st.title(page_title)
@@ -31,7 +34,8 @@ uploaded_file = st.file_uploader('Escolha um arquivo .torrent', type='torrent',
                                  help='O arquivo deve ter a extensão .torrent')
 
 if uploaded_file is not None:
-    magnet_uri = get_magnet_link(uploaded_file)
+    metainfo = decode(uploaded_file.read())
+    magnet_uri = get_magnet_link(metainfo)
 
     warn = st.empty()
     warn.info('Gerando URI magnético...')
@@ -50,8 +54,10 @@ if uploaded_file is not None:
         'https://raw.githubusercontent.com/XIU2/TrackersListCollection/master/all.txt'
     ]
 
+    # Obtém os trackers do arquivo torrent
+    trackers = get_trackers(metainfo)
+
     # Obtém os trackers de cada lista de URLs
-    trackers = set()
     for url in trackers_urls:
         try:
             response = get(url)
