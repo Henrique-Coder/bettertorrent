@@ -8,9 +8,7 @@ from requests import get, exceptions
 class TrackerList:
     def __init__(self):
         self.source_urls = [
-            'https://trackerslist.com/all.txt',
-            'https://newtrackon.com/api/all',
-            'https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt',
+            'https://raw.githubusercontent.com/Henrique-Coder/besttrackers/main/working_trackers.txt',
         ]
 
 
@@ -28,10 +26,11 @@ def main():
 
     # Title and input for mgnetic links
     st.title(page_title)
+
     magnet_uris_input = st.text_area(
         'Paste your magnetic links here (one per line) ↴',
         height=105,
-        help='⬐ You can paste multiple links at once.'
+        help='⬐ You can paste unlimited magnetic links at once.',
     )
 
     if magnet_uris_input:
