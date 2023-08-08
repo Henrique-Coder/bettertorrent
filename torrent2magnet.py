@@ -46,7 +46,6 @@ def main():
             for param in query_params:
                 if param.startswith('tr='):
                     trackers.add(param[3:])
-
             # Get trackers from external lists
             merge_trackers(trackers, TrackerList().source_urls)
 
@@ -64,10 +63,9 @@ def main():
             # Display the updated URI with trackers
             st.write('')
             st.write(
-                f'SHA1: ***{sha1(updated_magnet_uri.encode()).hexdigest().lower()}* ・** Total of ***{len(trackers)-1}*** trackers and ***{len(updated_magnet_uri)}*** characters ↴'
+                f'SHA1: ***{sha1(updated_magnet_uri.encode()).hexdigest().lower()}* ・** Total of ***{len(trackers) - 1}*** trackers and ***{len(updated_magnet_uri)}*** characters ↴'
             )
             st.code(updated_magnet_uri, language='text')
-
     st.markdown('---')
     st.write('')
     uploaded_file = st.file_uploader(
@@ -106,7 +104,7 @@ def main():
         metainfo[b'announce-list'] = [[tracker.encode()] for tracker in trackers]
 
         st.write(
-            f'SHA1: ***{sha1(updated_magnet_uri.encode()).hexdigest().lower()}* ・** Total of ***{len(trackers)-1}*** trackers and ***{len(updated_magnet_uri)}*** characters ↴'
+            f'SHA1: ***{sha1(updated_magnet_uri.encode()).hexdigest().lower()}* ・** Total of ***{len(trackers) - 1}*** trackers and ***{len(updated_magnet_uri)}*** characters ↴'
         )
         st.code(updated_magnet_uri, language='text')
 
@@ -115,7 +113,7 @@ def main():
         with scl1:
             if st.button(
                     f'Update trackers and reapply them to the **.torrent** file',
-                    help='This button will update the trackers and reapply them to the .torrent file.'
+                    help='This button will update the trackers and reapply them to the .torrent file.',
             ):
                 st.experimental_rerun()
         with scl2:
