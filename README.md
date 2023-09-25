@@ -1,2 +1,0 @@
-# torrent2magnet
- 
