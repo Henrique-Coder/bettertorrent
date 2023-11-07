@@ -1,6 +1,6 @@
+import streamlit as st
 from hashlib import sha1
 from urllib.parse import urlparse
-import streamlit as st
 from bencodepy import decode, encode
 from requests import get, exceptions
 from random import uniform
@@ -10,7 +10,7 @@ class TrackerList:
     def __init__(self):
         tmp_param = str(uniform(0.0000000000000000, 9.9999999999999999))
         self.source_urls = [
-            f'https://raw.githubusercontent.com/Henrique-Coder/besttrackers/main/working_trackers.txt?tmp={tmp_param}',
+            f'https://raw.githubusercontent.com/Henrique-Coder/besttrackers/main/besttrackers.txt?tmp={tmp_param}',
         ]
 
 
