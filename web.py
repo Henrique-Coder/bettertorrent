@@ -10,11 +10,11 @@ class TrackerList:
     def __init__(self):
         tmp_param = str(uniform(0.0000000000000000, 9.9999999999999999))
         self.source_urls = [
-            f'https://raw.githubusercontent.com/Henrique-Coder/besttrackers/main/all.txt?tmp={tmp_param}',
+            f'https://raw.githubusercontent.com/Henrique-Coder/besttrackers/main/best.txt?tmp={tmp_param}',
         ]
 
 
-def main():
+def main_app():
     # Page settings
     page_title = 'Torrent File ⇄ Magnetic URI'
     page_favicon = 'favicon.ico'
@@ -162,4 +162,4 @@ def merge_trackers(trackers, urls):
 
 
 if __name__ == '__main__':
-    main()
+    main_app()
