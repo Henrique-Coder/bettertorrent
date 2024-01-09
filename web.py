@@ -2,15 +2,13 @@ import streamlit as st
 from hashlib import sha1
 from urllib.parse import urlparse
 from bencodepy import decode, encode
-from requests import get, exceptions
-from random import uniform
+from httpx import get, _exceptions
 
 
 class TrackerList:
     def __init__(self):
-        tmp_param = str(uniform(0.0000000000000000, 9.9999999999999999))
         self.source_urls = [
-            f'https://raw.githubusercontent.com/Henrique-Coder/besttrackers/main/best.txt?tmp={tmp_param}',
+            'https://cdn.jsdelivr.net/gh/Henrique-Coder/besttrackers/best.txt',
         ]
 
 
@@ -78,7 +76,13 @@ def main_app():
 
     if uploaded_file is not None:
         metainfo = decode(uploaded_file.read())
-        magnet_uri = get_magnet_uri(metainfo)
+        try:
+            magnet_uri = get_magnet_uri(metainfo)
+        except Exception:
+            st.error(
+                'This .torrent file does not contain the necessary information to generate a magnetic uri.'
+            )
+            return
         magnet_hash = magnet_uri.split(':')[-1]
 
         st.markdown('')
@@ -157,7 +161,7 @@ def merge_trackers(trackers, urls):
             for tracker in resp.text.splitlines():
                 if tracker:
                     trackers.add(tracker)
-        except exceptions.RequestException:
+        except _exceptions.HTTPError:
             pass
 
 
