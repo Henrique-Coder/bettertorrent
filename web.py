@@ -46,6 +46,7 @@ def main_app():
             for param in query_params:
                 if param.startswith('tr='):
                     trackers.add(param[3:])
+            
             # Get trackers from external lists
             merge_trackers(trackers, TrackerList().source_urls)
 
@@ -61,13 +62,13 @@ def main_app():
             ).geturl()
 
             # Display the updated URI with trackers
-            st.write('')
+            st.write(str())
             st.write(
                 f'SHA1: ***{sha1(updated_magnet_uri.encode()).hexdigest().lower()}* ・** Total of ***{len(trackers) - 1}*** trackers and ***{len(updated_magnet_uri)}*** characters ↴'
             )
             st.code(updated_magnet_uri, language='text')
     st.markdown('---')
-    st.write('')
+    st.write(str())
     uploaded_file = st.file_uploader(
         'Select the desired .torrent file (one at a time) ↴',
         type='torrent',
@@ -75,17 +76,15 @@ def main_app():
     )
 
     if uploaded_file is not None:
-        metainfo = decode(uploaded_file.read())
         try:
+            metainfo = decode(uploaded_file.read())
             magnet_uri = get_magnet_uri(metainfo)
         except Exception:
-            st.error(
-                'This .torrent file does not contain the necessary information to generate a magnetic uri.'
-            )
+            st.error('This .torrent file does not contain the necessary information to generate a magnetic uri.')
             return
         magnet_hash = magnet_uri.split(':')[-1]
 
-        st.markdown('')
+        st.markdown(str())
 
         # Get trackers from each list of urls
         trackers = get_trackers(metainfo)
