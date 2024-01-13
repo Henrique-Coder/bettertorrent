@@ -3,8 +3,11 @@
 .venv
 __pycache__
 
-# Custom directories
+# Directories
 # ...
 
-# Custom extensions/files
+# Files
+# ...
+
+# Extensions
 # ...
