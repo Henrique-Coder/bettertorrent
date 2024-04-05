@@ -2,7 +2,7 @@ import streamlit as st
 from hashlib import sha1
 from urllib.parse import urlparse
 from bencodepy import decode, encode
-from httpx import get, _exceptions
+from httpx import get, _exceptions as httpx_exceptions
 
 
 class TrackerList:
@@ -24,7 +24,7 @@ def main_app():
         initial_sidebar_state='auto',
     )
 
-    # Title and input for mgnetic links
+    # Title and input for magnetic links
     st.title(page_title)
 
     magnet_uris_input = st.text_area(
@@ -160,7 +160,7 @@ def merge_trackers(trackers, urls):
             for tracker in resp.text.splitlines():
                 if tracker:
                     trackers.add(tracker)
-        except _exceptions.HTTPError:
+        except httpx_exceptions.HTTPError:
             pass
 
 
